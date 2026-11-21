@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" data-density="comfortable">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Campus Hub - Adaptive UI</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="topbar">
+    <h1>Campus Hub</h1>
+    <div class="controls" role="group" aria-label="Adaptation controls">
+      <label class="check">
+        <input type="checkbox" id="adaptiveToggle" checked>
+        <span>Adaptive features</span>
+      </label>
+      <label class="select">
+        <span>Density</span>
+        <select id="densitySelect">
+          <option value="auto">Auto (AI)</option>
+          <option value="compact">Compact</option>
+          <option value="comfortable">Comfortable</option>
+          <option value="spacious">Spacious</option>
+        </select>
+      </label>
+      <button type="button" id="themeBtn" aria-label="Toggle light or dark theme">Theme: <span id="themeLabel">light</span></button>
+    </div>
+  </header>
+
+  <div class="layout">
+    <nav class="sidebar" aria-label="Main navigation">
+      <section id="suggestedBlock" aria-labelledby="suggestedTitle">
+        <h2 id="suggestedTitle">Suggested for you <span class="badge" title="Chosen by the AI model">AI</span></h2>
+        <ul class="menu" id="suggestedMenu" data-zone="suggested"></ul>
+      </section>
+
+      <section aria-labelledby="allTitle">
+        <h2 id="allTitle">All sections</h2>
+        <ul class="menu" id="mainMenu" data-zone="main"></ul>
+      </section>
+    </nav>
+
+    <main id="main" tabindex="-1">
+      <h2 id="sectionTitle">Dashboard</h2>
+      <p id="sectionText">Pick a section from the menu. Campus Hub learns from what you click.</p>
+
+      <div class="actions">
+        <button type="button" id="simulateBtn">Simulate 40 interactions</button>
+        <button type="button" id="resetBtn" class="secondary">Reset learning</button>
+      </div>
+      <p class="hint">Tip: click the sections in the order Assignments, Grades, Messages a few times, or press "Simulate 40 interactions" to watch the interface adapt.</p>
+    </main>
+
+    <aside class="panel" aria-labelledby="panelTitle">
+      <h2 id="panelTitle">How the AI sees you</h2>
+
+      <h3>Next-action prediction</h3>
+      <p class="small">Recency-weighted frequency blended with a Markov chain.</p>
+      <div id="predictionList" class="bars"></div>
+
+      <h3>Layout density bandit</h3>
+      <p class="small">Epsilon-greedy. Reward = accurate, fast clicks; mis-clicks (clicking the gaps) are penalised.</p>
+      <div id="banditInfo"></div>
+
+      <h3>Theme learner</h3>
+      <div id="themeInfo"></div>
+    </aside>
+  </div>
+
+  <!-- Screen-reader announcements for adaptive changes -->
+  <div id="announcer" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></div>
+
+  <script src="models.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
